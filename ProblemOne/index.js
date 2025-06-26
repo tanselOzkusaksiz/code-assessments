@@ -98,6 +98,10 @@ function sumSomeArray(person) {
   };
 };
 
+function isGuest(person) {
+  return person?.guest_type === 'guest';
+}
+
 //#endregion Helper Functions
 
 //#region MAIN WRAPPER FUNCTION
@@ -122,7 +126,11 @@ function mutateArray(data) {
   const summedData = flattenedData.map(person => sumSomeArray(person));
   log("\nStep 2: After calculating 'some_total':", summedData);
 
-  return summedData;
+  // Step 3: Filter for guests
+  const filteredGuests = summedData.filter(person => isGuest(person));
+  log("\nStep 3: After filtering for 'guest' type:", filteredGuests);
+
+  return filteredGuests;
 }
 
 //#endregion MAIN WRAPPER FUNCTION
