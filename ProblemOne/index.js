@@ -64,8 +64,6 @@ const traceLogsEnabled = true;
 
 //#endregion Variables
 
-
-
 //#region Helper Functions
 
 /**
@@ -184,8 +182,6 @@ function processGuestData(data) {
   log("\nStep 3: After filtering for 'guest' type:", filteredGuests);
 
   // Step 4: Sort alphabetically
-  // IMPROVEMENT: Removed redundant spread operator `[...]`. The `.filter()` method
-  // already returns a new array, so we can safely call `.sort()` on it directly.
   const sortedData = filteredGuests.sort(sortByName);
   log("\nStep 4: After sorting by name (Final Result):", sortedData);
   log("\n--- Processing Complete ---");
@@ -194,7 +190,6 @@ function processGuestData(data) {
 }
 
 //#endregion MAIN WRAPPER FUNCTION
-
 
 // EXPORT the functions so they can be imported in the test file
 // This check makes the code compatible with both Node.js (for testing) and browsers.
