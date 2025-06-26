@@ -62,6 +62,10 @@ const traceLogsEnabled = true;
 
 //#endregion Variables
 
+
+
+//#region Helper Functions
+
 const log = (message, data) => {
   if (traceLogsEnabled) {
     // Use JSON cloning for logs to show immutable state at each step
@@ -71,7 +75,14 @@ const log = (message, data) => {
   }
 };
 
-//#region Helper Functions
+function flattenGuestData(person) {
+  const { guest_booking, ...restOfPerson } = person;
+  return {
+    ...restOfPerson,
+    room_no: guest_booking?.room_no ?? 'N/A',
+    some_array: guest_booking?.some_array,
+  };
+};
 
 
 //#endregion Helper Functions
@@ -90,7 +101,11 @@ function mutateArray(data) {
   log("--- Starting Mutation Process ---");
   log("Initial Data:", data);
 
-  return data;
+  // Step 1: Flatten the array
+  const flattenedData = data.map(person => flattenGuestData(person));
+  log("\nStep 1: After flattening array:", flattenedData);
+
+  return flattenedData;
 }
 
 //#endregion MAIN WRAPPER FUNCTION
