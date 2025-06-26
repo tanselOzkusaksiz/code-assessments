@@ -1,0 +1,45 @@
+// This file styles the calculator's display, including the text color, alignment, and font sizes.
+.displayContainer {
+  color: white;
+  text-align: right;
+  padding: 40px 20px 10px;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.calculationDisplay {
+  font-size: 1.5rem;
+  color: #a5a5a5;
+  text-align: right;
+  height: 25px;
+  margin-bottom: 5px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.displayValue {
+  font-weight: 300;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  transition: font-size 0.1s ease-in-out;
+}
+
+.largeFont {
+  font-size: 5.5rem;
+}
+
+.mediumFont {
+  font-size: 4rem;
+}
+
+.smallFont {
+  font-size: 3rem;
+}

@@ -1,0 +1,9 @@
+// This file defines the grid layout for the keypad, arranging the buttons in the correct order.
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 14px;
+  padding: 20px;
+  height: 420px; /* Fixed height for keypad area */
+}

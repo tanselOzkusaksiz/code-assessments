@@ -1,0 +1,44 @@
+// This file styles the individual calculator buttons, including their colors, shapes, and hover/active states.
+.button {
+  border: none;
+  border-radius: 50%;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: filter 0.2s;
+  aspect-ratio: 1 / 1;
+  -webkit-tap-highlight-color: transparent; /* For mobile */
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:active {
+  filter: brightness(1.2);
+}
+
+.number {
+  background-color: #333;
+}
+
+.function {
+  background-color: #a5a5a5;
+  color: black;
+}
+
+.operator {
+  background-color: #f1a33c;
+  font-size: 2.5rem;
+}
+
+.zero {
+  grid-column: span 2;
+  aspect-ratio: auto;
+  border-radius: 50px;
+  justify-content: flex-start;
+  padding-left: 28px;
+}
