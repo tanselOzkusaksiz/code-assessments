@@ -1,11 +1,13 @@
+//#region Variables
+
 var arr = [
   {
     'guest_type': 'crew',
     'first_name': 'Marco',
     'last_name': 'Burns',
     'guest_booking': {
-        'room_no': 'A0073',
-        'some_array': [7,2,4]
+      'room_no': 'A0073',
+      'some_array': [7, 2, 4]
     },
   },
   {
@@ -13,8 +15,8 @@ var arr = [
     'first_name': 'John',
     'last_name': 'Doe',
     'guest_booking': {
-        'room_no': 'C73',
-        'some_array': [1,3,5,2,4,3]
+      'room_no': 'C73',
+      'some_array': [1, 3, 5, 2, 4, 3]
     },
   },
   {
@@ -22,8 +24,8 @@ var arr = [
     'first_name': 'Jane',
     'last_name': 'Doe',
     'guest_booking': {
-        'room_no': 'C73',
-        'some_array': [1,3,5,2,4,3]
+      'room_no': 'C73',
+      'some_array': [1, 3, 5, 2, 4, 3]
     },
   },
   {
@@ -31,8 +33,8 @@ var arr = [
     'first_name': 'Albert',
     'last_name': 'Einstein',
     'guest_booking': {
-        'room_no': 'B15',
-        'some_array': [2,5,6,3]
+      'room_no': 'B15',
+      'some_array': [2, 5, 6, 3]
     },
   },
   {
@@ -40,8 +42,8 @@ var arr = [
     'first_name': 'Jack',
     'last_name': 'Daniels',
     'guest_booking': {
-        'room_no': 'B15',
-        'some_array': [2,5,6,3]
+      'room_no': 'B15',
+      'some_array': [2, 5, 6, 3]
     },
   },
   {
@@ -49,17 +51,55 @@ var arr = [
     'first_name': 'Alan',
     'last_name': 'Turing',
     'guest_booking': {
-        'room_no': 'B15',
-        'some_array': [2,5,6,3]
+      'room_no': 'B15',
+      'some_array': [2, 5, 6, 3]
     },
   },
 ];
 
-function mutateArray(a) {
-    return a;
+// Set to true to see step-by-step logs in the console, false to disable.
+const traceLogsEnabled = true;
+
+//#endregion Variables
+
+const log = (message, data) => {
+  if (traceLogsEnabled) {
+    // Use JSON cloning for logs to show immutable state at each step
+    // I prefer lodash.clonedeep, but I am not sure if you want me no not include external libraries, as a result I will use JSON methods.
+    const deepClone = (obj) => JSON.parse(JSON.stringify(obj));
+    console.log(message, data ? deepClone(data) : '');
+  }
+};
+
+//#region Helper Functions
+
+
+//#endregion Helper Functions
+
+//#region MAIN WRAPPER FUNCTION
+
+function mutateArray(data) {
+
+  // Input validation: Ensure the provided data is an array.
+  if (!Array.isArray(data)) {
+    const errorMessage = "Error: Input data is not an array. Cannot process.";
+    console.error(errorMessage);
+    return errorMessage;
+  }
+
+  log("--- Starting Mutation Process ---");
+  log("Initial Data:", data);
+
+  return data;
 }
 
-$(document).ready(function() {
-    $('#originalArray').html(JSON.stringify(arr, null, 2));
-    $('#resultsArray').html(JSON.stringify(mutateArray(arr), null, 2));
+//#endregion MAIN WRAPPER FUNCTION
+
+//#region DOM
+
+$(document).ready(function () {
+  $('#originalArray').html(JSON.stringify(arr, null, 2));
+  $('#resultsArray').html(JSON.stringify(mutateArray(arr), null, 2));
 });
+
+//#endregion DOM
