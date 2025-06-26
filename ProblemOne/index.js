@@ -84,6 +84,19 @@ function flattenGuestData(person) {
   };
 };
 
+function sumSomeArray(person) {
+  const { some_array, ...restOfPerson } = person;
+  const sum = Array.isArray(some_array)
+    ? some_array.reduce((total, current) => {
+      // Ensure only numbers are added. If 'current' is not a number, add 0.
+      return total + (typeof current === 'number' ? current : 0);
+    }, 0)
+    : 0;
+  return {
+    ...restOfPerson,
+    some_total: sum,
+  };
+};
 
 //#endregion Helper Functions
 
@@ -105,7 +118,11 @@ function mutateArray(data) {
   const flattenedData = data.map(person => flattenGuestData(person));
   log("\nStep 1: After flattening array:", flattenedData);
 
-  return flattenedData;
+  // Step 2: Sum the 'some_array' attribute
+  const summedData = flattenedData.map(person => sumSomeArray(person));
+  log("\nStep 2: After calculating 'some_total':", summedData);
+
+  return summedData;
 }
 
 //#endregion MAIN WRAPPER FUNCTION
