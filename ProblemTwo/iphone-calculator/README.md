@@ -3,6 +3,10 @@
 This project is a React-based clone of the iPhone calculator. 
 It replicates the look and feel of the iOS calculator, including its button layout, basic arithmetic operations, and responsive design.
 
+Solution Screenshot (with width 200px):
+
+<img src="./public/solution.png" alt="iPhone Calculator" width="200"/>
+
 ## Features
 
 - Responsive iPhone-style calculator UI
