@@ -1,46 +1,86 @@
-# Getting Started with Create React App
+# iPhone Calculator Assessment Sample
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a React-based clone of the iPhone calculator. 
+It replicates the look and feel of the iOS calculator, including its button layout, basic arithmetic operations, and responsive design.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Responsive iPhone-style calculator UI
+- Supports addition, subtraction, multiplication, and division
+- Handles decimals, percentage, and sign toggling (+/-)
+- Keyboard and mouse/touch input support
+- Error handling for invalid operations (e.g., division by zero)
+- Built with TypeScript and React
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Prerequisites
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- [Node.js](https://nodejs.org/) (v14 or higher recommended)
+- [npm](https://www.npmjs.com/) (comes with Node.js)
 
-### `npm test`
+### Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone the repository or download the source code.
+2. Navigate to the `ProblemTwo/iphone-calculator` directory:
 
-### `npm run build`
+    ```sh
+    cd ProblemTwo/iphone-calculator
+    ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Install dependencies:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    ```sh
+    npm install
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Running the App
 
-### `npm run eject`
+To start the development server and view the calculator in your browser:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```sh
+npm start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+This will open [http://localhost:3000](http://localhost:3000) in your default browser.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Running Tests
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+To run the unit tests:
 
-## Learn More
+```sh
+npm test
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Test results will be displayed in the terminal. You can also run:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```sh
+  Calculator App
+    ✓ renders the calculator and initial display is 0 (15 ms)
+    ✓ should display the number when a number key is pressed (33 ms)
+    ✓ should perform addition correctly (15 ms)
+    ✓ should perform subtraction correctly (13 ms)
+    ✓ should perform multiplication correctly (14 ms)
+    ✓ should perform division correctly (13 ms)
+    ✓ should clear the display when AC is pressed (13 ms)
+    ✓ should toggle the sign of the number (11 ms)
+    ✓ should calculate the percentage correctly (10 ms)
+    ✓ should display "Error" when dividing by zero (13 ms)
+    ✓ should display the calculation history after pressing equals (16 ms)
+    ✓ should clear the calculation history when a new number is entered after a calculation (17 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       12 passed, 12 total
+Snapshots:   0 total
+Time:        0.614 s, estimated 1 s
+Ran all test suites related to changed files.
+```
+
+This will launch the test runner in interactive watch mode.
+
+## Project Structure
+
+- `src/components/` - Calculator UI components
+- `src/configs/` - Calculator key configuration and enums
+- `src/App.tsx` - Main application logic
+
