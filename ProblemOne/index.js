@@ -191,8 +191,6 @@ function processGuestData(data) {
   log("\n--- Processing Complete ---");
 
   return sortedData;
-
-  // IMPROVEMENT: Removed unreachable code that was here.
 }
 
 //#endregion MAIN WRAPPER FUNCTION
