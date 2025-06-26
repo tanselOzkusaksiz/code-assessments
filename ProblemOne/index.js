@@ -1,3 +1,6 @@
+// index.js
+// This file contains the main logic for processing an array of guest data.
+
 //#region Variables
 
 var arr = [
@@ -56,7 +59,6 @@ var arr = [
     },
   },
 ];
-
 // Set to true to see step-by-step logs in the console, false to disable.
 const traceLogsEnabled = true;
 
@@ -66,15 +68,27 @@ const traceLogsEnabled = true;
 
 //#region Helper Functions
 
-const log = (message, data) => {
+/**
+ * A utility for conditional logging based on the traceLogsEnabled flag.
+ * Clones data to prevent logging mutated objects by reference.
+ * @param {string} message - The message to log.
+ * @param {*} [data] - Optional data to log. It will be deep-cloned.
+ */
+function log(message, data) {
   if (traceLogsEnabled) {
-    // Use JSON cloning for logs to show immutable state at each step
-    // I prefer lodash.clonedeep, but I am not sure if you want me no not include external libraries, as a result I will use JSON methods.
+    // Using JSON for cloning is a lightweight way to show immutable state at each step.
+    // It works well for JSON-compatible data (no Dates, Functions, undefined, etc.).
+    // For more complex objects, a library like lodash.clonedeep would be more robust.
     const deepClone = (obj) => JSON.parse(JSON.stringify(obj));
     console.log(message, data ? deepClone(data) : '');
   }
 };
 
+/**
+ * A pure function to flatten the guest data structure.
+ * @param {object} person - The original person object.
+ * @returns {object} - A new object with a flattened structure.
+ */
 function flattenGuestData(person) {
   const { guest_booking, ...restOfPerson } = person;
   return {
@@ -84,6 +98,11 @@ function flattenGuestData(person) {
   };
 };
 
+/**
+ * A pure function to calculate the sum of 'some_array' and replace it with 'some_total'.
+ * @param {object} person - The person object with a 'some_array' property.
+ * @returns {object} - A new object with 'some_total' instead of 'some_array'.
+ */
 function sumSomeArray(person) {
   const { some_array, ...restOfPerson } = person;
   const sum = Array.isArray(some_array)
@@ -98,10 +117,24 @@ function sumSomeArray(person) {
   };
 };
 
+/**
+ * A pure function that checks if a person is a guest.
+ * Safely handles cases where person or guest_type might be missing.
+ * @param {object} person - The person object to check.
+ * @returns {boolean} - True if the person is a guest, false otherwise.
+ */
 function isGuest(person) {
   return person?.guest_type === 'guest';
 }
 
+/**
+ * A pure comparator function to sort guests alphabetically by last name, then first name.
+ * Uses `localeCompare` for robust string comparison.
+ * Safely handles cases where names are missing.
+ * @param {object} a - The first guest object.
+ * @param {object} b - The second guest object.
+ * @returns {number} - A negative, zero, or positive value for sorting.
+ */
 function sortByName(a, b) {
   // Default to empty strings if names are null or undefined
   const lastNameA = a.last_name ?? '';
@@ -117,7 +150,16 @@ function sortByName(a, b) {
 
 //#region MAIN WRAPPER FUNCTION
 
-function mutateArray(data) {
+/**
+ * Processes the guest array by transforming, filtering, and sorting the data.
+ * This function is a pipeline that composes the pure helper functions.
+ * It does not modify the original array, instead returning a new one.
+ * @param {Array<object>} data - The original array of guest data.
+ * @returns {Array<object>|string} - The new, processed array of guest data, or an error message string.
+ */
+// IMPROVEMENT: Renamed function from `mutateArray` to `processGuestData` to accurately reflect
+// that it does NOT mutate the original array.
+function processGuestData(data) {
 
   // Input validation: Ensure the provided data is an array.
   if (!Array.isArray(data)) {
@@ -126,29 +168,31 @@ function mutateArray(data) {
     return errorMessage;
   }
 
-  log("--- Starting Mutation Process ---");
+  log("--- Starting Processing ---");
   log("Initial Data:", data);
 
   // Step 1: Flatten the array
-  const flattenedData = data.map(person => flattenGuestData(person));
+  const flattenedData = data.map(flattenGuestData);
   log("\nStep 1: After flattening array:", flattenedData);
 
   // Step 2: Sum the 'some_array' attribute
-  const summedData = flattenedData.map(person => sumSomeArray(person));
+  const summedData = flattenedData.map(sumSomeArray);
   log("\nStep 2: After calculating 'some_total':", summedData);
 
   // Step 3: Filter for guests
-  const filteredGuests = summedData.filter(person => isGuest(person));
+  const filteredGuests = summedData.filter(isGuest);
   log("\nStep 3: After filtering for 'guest' type:", filteredGuests);
 
   // Step 4: Sort alphabetically
-  const sortedData = [...filteredGuests].sort((a, b) => sortByName(a, b));
+  // IMPROVEMENT: Removed redundant spread operator `[...]`. The `.filter()` method
+  // already returns a new array, so we can safely call `.sort()` on it directly.
+  const sortedData = filteredGuests.sort(sortByName);
   log("\nStep 4: After sorting by name (Final Result):", sortedData);
-  log("\n--- Mutation Complete ---");
+  log("\n--- Processing Complete ---");
 
   return sortedData;
 
-  return filteredGuests;
+  // IMPROVEMENT: Removed unreachable code that was here.
 }
 
 //#endregion MAIN WRAPPER FUNCTION
@@ -157,7 +201,8 @@ function mutateArray(data) {
 
 $(document).ready(function () {
   $('#originalArray').html(JSON.stringify(arr, null, 2));
-  $('#resultsArray').html(JSON.stringify(mutateArray(arr), null, 2));
+  // Call the renamed function
+  $('#resultsArray').html(JSON.stringify(processGuestData(arr), null, 2));
 });
 
 //#endregion DOM
