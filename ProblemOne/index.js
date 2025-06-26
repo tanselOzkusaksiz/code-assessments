@@ -3,7 +3,7 @@
 
 //#region Variables
 
-var arr = [
+const arr = [
   {
     'guest_type': 'crew',
     'first_name': 'Marco',
@@ -157,8 +157,8 @@ function sortByName(a, b) {
  * @param {Array<object>} data - The original array of guest data.
  * @returns {Array<object>|string} - The new, processed array of guest data, or an error message string.
  */
-// IMPROVEMENT: Renamed function from `mutateArray` to `processGuestData` to accurately reflect
-// that it does NOT mutate the original array.
+// PS: I renamed function from `mutateArray` to `processGuestData` to accurately reflect
+// as it does NOT mutate the original array.
 function processGuestData(data) {
 
   // Input validation: Ensure the provided data is an array.
@@ -197,12 +197,12 @@ function processGuestData(data) {
 
 //#endregion MAIN WRAPPER FUNCTION
 
-//#region DOM
 
-$(document).ready(function () {
-  $('#originalArray').html(JSON.stringify(arr, null, 2));
-  // Call the renamed function
-  $('#resultsArray').html(JSON.stringify(processGuestData(arr), null, 2));
-});
-
-//#endregion DOM
+// EXPORT the functions so they can be imported in the test file
+// This check makes the code compatible with both Node.js (for testing) and browsers.
+// It checks if the 'module' object exists before trying to use it.
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+  module.exports = {
+    processGuestData
+  };
+}
