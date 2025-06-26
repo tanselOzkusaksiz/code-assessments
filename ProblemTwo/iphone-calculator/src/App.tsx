@@ -32,6 +32,12 @@ const App = () => {
    * @type {boolean}
    */
   const [waitingForOperand, setWaitingForOperand] = useState(false);
+  /**
+   * Stores the string of the last completed calculation to be displayed.
+   * This is only set when the '=' key is pressed.
+   * @type {string}
+   */
+  const [lastCalculation, setLastCalculation] = useState('');
 
   /**
    * Resets the calculator to its initial state.
@@ -42,13 +48,20 @@ const App = () => {
     setPreviousValue(null);
     setOperator(null);
     setWaitingForOperand(false);
+    setLastCalculation('');
   };
 
   /**
    * Handles the input of number keys (0-9 and '.').
+   * Clears the last calculation string if a new calculation is started.
    * @param {string} value The value of the key that was pressed.
    */
   const handleNumberInput = (value: string) => {
+    // If a calculation was just completed, clear the previous calculation string
+    if (waitingForOperand && operator === null) {
+      setLastCalculation('');
+    }
+
     if (waitingForOperand) {
       setDisplayValue(value);
       setWaitingForOperand(false);
@@ -89,6 +102,8 @@ const App = () => {
    * @param {string} nextOperator The operator key that was pressed.
    */
   const handleOperatorInput = (nextOperator: string) => {
+    // Clear the last calculation when a new operator is used
+    setLastCalculation('');
     const currentValue = parseFloat(displayValue);
 
     if (operator && waitingForOperand) {
@@ -131,6 +146,7 @@ const App = () => {
 
   /**
    * Handles all key clicks and routes them to the appropriate handler.
+   * When '=' is pressed, it finalizes the calculation and sets the `lastCalculation` string.
    * @param {string} value The value of the key that was clicked.
    * @param {KeyType} type The type of key that was clicked (number, operator, or function).
    */
@@ -142,8 +158,12 @@ const App = () => {
       case KeyType.Operator:
         if (value === '=') {
           if (operator && previousValue !== null) {
+            const currentDisplayValue = displayValue;
             const result = performCalculation();
-            console.log(result);
+
+            // Set the string to be displayed above the result
+            setLastCalculation(`${previousValue} ${operator} ${currentDisplayValue}`);
+
             setDisplayValue(
               isNaN(result) || !isFinite(result)
                 ? 'Error'
@@ -167,7 +187,7 @@ const App = () => {
 
   return (
     <div className="calculator">
-      <CalculatorDisplay value={displayValue} />
+      <CalculatorDisplay value={displayValue} calculation={lastCalculation} />
       <CalculatorKeypad onKeyClick={handleKeyClick} />
     </div>
   );

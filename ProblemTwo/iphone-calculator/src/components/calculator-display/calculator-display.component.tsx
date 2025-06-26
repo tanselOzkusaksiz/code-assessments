@@ -8,6 +8,8 @@ import styles from './calculator-display.module.scss';
 interface DisplayProps {
   /** The value to display on the screen. */
   value: string;
+  /** The ongoing calculation to display above the main value. */
+  calculation: string;
 }
 
 /**
@@ -16,7 +18,7 @@ interface DisplayProps {
  * @param {DisplayProps} props The properties for the component.
  * @returns {React.FC<DisplayProps>} A React functional component.
  */
-const CalculatorDisplay: React.FC<DisplayProps> = ({ value }) => {
+const CalculatorDisplay: React.FC<DisplayProps> = ({ value, calculation }) => {
   /**
    * Determines the font size class based on the length of the display value.
    * This is to ensure the value fits within the display area.
@@ -30,6 +32,7 @@ const CalculatorDisplay: React.FC<DisplayProps> = ({ value }) => {
 
   return (
     <div className={styles.displayContainer}>
+      <div className={styles.calculationDisplay}>{calculation}</div>
       <div className={`${styles.displayValue} ${getFontSize()}`}>
         {value}
       </div>

@@ -12,6 +12,17 @@
   justify-content: flex-end;
 }
 
+.calculationDisplay {
+  font-size: 1.5rem;
+  color: #a5a5a5;
+  text-align: right;
+  height: 25px;
+  margin-bottom: 5px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .displayValue {
   font-weight: 300;
   line-height: 1;
