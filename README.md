@@ -3,11 +3,11 @@ Code Assessments for Developers
 
 
  ### ProblemOne
- - Instructions link: [problemOne/instructions.md](problemOne/instructions.md)
+ - Instructions link: [ProblemOne/instructions.md](ProblemOne/instructions.md)
  - For solution, check the `develop` branch.
 
 
 ### ProblemTwo
-  - Instructions link: [problemTwo/instructions.md](problemTwo/instructions.md)
+  - Instructions link: [ProblemTwo/instructions.md](ProblemTwo/instructions.md)
   - For solution, check the `develop` branch.
 
