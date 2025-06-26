@@ -170,19 +170,19 @@ function processGuestData(data) {
   log("Initial Data:", data);
 
   // Step 1: Flatten the array
-  const flattenedData = data.map(flattenGuestData);
+  const flattenedData = data.map(person => flattenGuestData(person));
   log("\nStep 1: After flattening array:", flattenedData);
 
   // Step 2: Sum the 'some_array' attribute
-  const summedData = flattenedData.map(sumSomeArray);
+  const summedData = flattenedData.map(person => sumSomeArray(person));
   log("\nStep 2: After calculating 'some_total':", summedData);
 
   // Step 3: Filter for guests
-  const filteredGuests = summedData.filter(isGuest);
+  const filteredGuests = summedData.filter(person => isGuest(person));
   log("\nStep 3: After filtering for 'guest' type:", filteredGuests);
 
   // Step 4: Sort alphabetically
-  const sortedData = filteredGuests.sort(sortByName);
+  const sortedData = filteredGuests.sort((a,b) => sortByName(a, b));
   log("\nStep 4: After sorting by name (Final Result):", sortedData);
   log("\n--- Processing Complete ---");
 
