@@ -102,6 +102,17 @@ function isGuest(person) {
   return person?.guest_type === 'guest';
 }
 
+function sortByName(a, b) {
+  // Default to empty strings if names are null or undefined
+  const lastNameA = a.last_name ?? '';
+  const lastNameB = b.last_name ?? '';
+  const firstNameA = a.first_name ?? '';
+  const firstNameB = b.first_name ?? '';
+
+  // Sort by last name. If they are the same, sort by first name.
+  return lastNameA.localeCompare(lastNameB) || firstNameA.localeCompare(firstNameB);
+}
+
 //#endregion Helper Functions
 
 //#region MAIN WRAPPER FUNCTION
@@ -129,6 +140,13 @@ function mutateArray(data) {
   // Step 3: Filter for guests
   const filteredGuests = summedData.filter(person => isGuest(person));
   log("\nStep 3: After filtering for 'guest' type:", filteredGuests);
+
+  // Step 4: Sort alphabetically
+  const sortedData = [...filteredGuests].sort((a, b) => sortByName(a, b));
+  log("\nStep 4: After sorting by name (Final Result):", sortedData);
+  log("\n--- Mutation Complete ---");
+
+  return sortedData;
 
   return filteredGuests;
 }
